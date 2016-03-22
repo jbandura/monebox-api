@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'grape'
 gem 'devise'
+gem 'pg'
 gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
