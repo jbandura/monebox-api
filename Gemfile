@@ -15,6 +15,9 @@ gem 'devise'
 gem 'pg'
 gem 'rack-cors', :require => 'rack/cors'
 
+group :test do
+  gem 'shoulda-matchers', '~> 3.1'
+end
 group :development, :test do
   gem 'byebug'
   gem 'pry'
