@@ -11,4 +11,13 @@ class UserAuthenticator
     return false if user.nil?
     user.reset_authentication_token
   end
+
+  def data_from_string_token(token)
+    return nil if token.nil? || !token.include?('Token token')
+    data = token.gsub('Token ', '').split(',')
+    {
+      token: data[0].gsub('token: ', '').strip,
+      email: data[1].gsub('email: ', '').strip
+    }
+  end
 end

@@ -19,11 +19,21 @@ module API
           end
 
           def current_user
-            User.find(1)
+            return nil if token_data.nil?
+            User.find_by({
+              email: token_data[:email],
+              authentication_token: token_data[:token]
+            })
           end
 
           def authenticated?
             !!current_user
+          end
+
+          def token_data
+            UserAuthenticator.new.data_from_string_token(
+              request.headers['Authorization']
+            )
           end
 
           def unauthorized_error
