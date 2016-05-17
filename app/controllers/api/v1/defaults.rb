@@ -6,6 +6,7 @@ module API
       included do
         version 'v1'
         default_format :json
+        formatter :json, Grape::Formatter::ActiveModelSerializers
         format :json
 
         helpers do
@@ -15,6 +16,18 @@ module API
 
           def logger
             Rails.logger
+          end
+
+          def current_user
+            User.find(1)
+          end
+
+          def authenticated?
+            !!current_user
+          end
+
+          def unauthorized_error
+            error!('401 Unauthorized', 401)
           end
         end
 

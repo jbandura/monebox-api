@@ -11,12 +11,16 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'grape'
+gem 'grape-active_model_serializers'
 gem 'devise'
 gem 'pg'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'active_model_serializers'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 group :development, :test do
   gem 'byebug'
