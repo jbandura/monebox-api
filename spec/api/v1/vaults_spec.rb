@@ -74,4 +74,16 @@ RSpec.describe 'API::V1::Vaults' do
       expect(response.status).to eq(204)
     end
   end
+
+  describe 'GET /api/v1/vaults/:id' do
+    let(:vault) { create(:vault, user: user) }
+    let(:response_body) { JSON.parse(response.body) }
+
+    it 'should retrieve vault for logged in user' do
+      get "/api/v1/vaults/#{vault.id}"
+      retrieved_vault = response_body["vault"]
+      expect(retrieved_vault["name"]).to eq(vault[:name])
+      expect(retrieved_vault["start_state"]).to eq(vault[:start_state])
+    end
+  end
 end
