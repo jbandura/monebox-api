@@ -39,7 +39,7 @@ RSpec.describe UserAuthenticator do
         .with(email: user_stub.email)
         .and_return([user_stub])
       jwt = subject.authenticate('admin@email.com', 'foobarpassword')
-      expect(jwt).to eq(user_stub.authentication_token)
+      expect(jwt[:token]).to eq(user_stub.authentication_token)
     end
   end
 
@@ -59,28 +59,6 @@ RSpec.describe UserAuthenticator do
         .and_return([])
       result = UserAuthenticator.new.destroy_token('AUTHENTICATION_TOKEN')
       expect(result).to eq(false)
-    end
-  end
-
-  context "#data_from_string_token" do
-    it 'should extract token and email from authorization string' do
-      result = UserAuthenticator.new.data_from_string_token(
-        'Token token: SECRET_TOKEN, email: john.doe@mail.local'
-      )
-      expect(result[:token]).to eq('SECRET_TOKEN')
-      expect(result[:email]).to eq('john.doe@mail.local')
-    end
-
-    it 'fails gracefully when string is malformated' do
-      result = UserAuthenticator.new.data_from_string_token(
-        'Wrong'
-      )
-      expect(result).to be(nil)
-    end
-
-    it 'fails gracefully when string is nil' do
-      result = UserAuthenticator.new.data_from_string_token(nil)
-      expect(result).to be(nil)
     end
   end
 end

@@ -1,10 +1,9 @@
 module API
   module AuthHelpers
     def current_user
-      return nil if token_data.nil?
+      return nil if token.nil?
       User.find_by({
-        email: token_data[:email],
-        authentication_token: token_data[:token]
+        authentication_token: token
       })
     end
 
@@ -12,10 +11,10 @@ module API
       !!current_user
     end
 
-    def token_data
-      UserAuthenticator.new.data_from_string_token(
-        request.headers['Authorization']
-      )
+    def token
+      if request.headers['Authorization'].present?
+        request.headers['Authorization'].split(' ').last
+      end
     end
 
     def unauthorized_error
