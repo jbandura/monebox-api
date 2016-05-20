@@ -61,4 +61,26 @@ RSpec.describe UserAuthenticator do
       expect(result).to eq(false)
     end
   end
+
+  context "#data_from_string_token" do
+    it 'should extract token and email from authorization string' do
+      result = UserAuthenticator.new.data_from_string_token(
+        'Token token: SECRET_TOKEN, email: john.doe@mail.local'
+      )
+      expect(result[:token]).to eq('SECRET_TOKEN')
+      expect(result[:email]).to eq('john.doe@mail.local')
+    end
+
+    it 'fails gracefully when string is malformated' do
+      result = UserAuthenticator.new.data_from_string_token(
+        'Wrong'
+      )
+      expect(result).to be(nil)
+    end
+
+    it 'fails gracefully when string is nil' do
+      result = UserAuthenticator.new.data_from_string_token(nil)
+      expect(result).to be(nil)
+    end
+  end
 end

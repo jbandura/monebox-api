@@ -17,18 +17,6 @@ module API
           def logger
             Rails.logger
           end
-
-          def current_user
-            User.find(1)
-          end
-
-          def authenticated?
-            !!current_user
-          end
-
-          def unauthorized_error
-            error!('401 Unauthorized', 401)
-          end
         end
 
         rescue_from ActiveRecord::RecordNotFound do |e|
