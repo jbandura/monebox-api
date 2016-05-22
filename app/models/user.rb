@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :vaults, class_name: 'Vault'
+  has_many :vault_operations, class_name: 'VaultOperation'
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
