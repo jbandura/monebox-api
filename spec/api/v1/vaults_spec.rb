@@ -71,7 +71,7 @@ RSpec.describe 'API::V1::Vaults' do
       vault_count = Vault.count
       delete "/api/v1/vaults/#{vault.id}"
       expect(Vault.count).to eq(vault_count - 1)
-      expect(response.status).to eq(204)
+      expect(response.status).to eq(200)
     end
   end
 

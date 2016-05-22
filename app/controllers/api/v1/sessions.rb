@@ -16,7 +16,16 @@ module API
         post nil, serializer: nil do
           email = params[:user][:email]
           data = UserAuthenticator.new.authenticate(email, params[:user][:password])
-          return { token: data[:token], email: email, user_id: data[:user].id } if data
+          user = UserSerializer.new(data[:user]).to_json
+          if data
+            return {
+              token: data[:token],
+              email: email,
+              user: user,
+              user_id: data[:user].id
+            }
+          end
+
           return error!(
             { error_code: 404, error_message: 'Invalid Email or Password.' },
             401

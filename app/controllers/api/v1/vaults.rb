@@ -52,11 +52,9 @@ module API
           end
 
           desc 'Delete a vault'
-          delete do
+          delete nil, serializer: nil do
             vault = current_user.vaults.find(params[:id])
             vault.destroy!
-            status 204
-            nil
           end
         end
       end
